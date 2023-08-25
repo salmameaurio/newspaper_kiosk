@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--SALMA MEAURIO -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Diarios en PY</title>
+    <link rel="icon" type="image/png" href="diarios.png">
+    <style>
+        h1{
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+            background-color: antiquewhite;
+        }
+        #anteriorBtn, #siguienteBtn,#popUp {
+            text-align: center;
+            background-color: bisque;
+            color: black;
+            border-radius: 6px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: bolder;
+            height: 40px;
+            border: 2px solid antiquewhite;
+            margin: 0;
+            
+
+        }
+        #botones{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1> DIARIOS EN PARAGUAY </h1>
+    <div>
+        <iframe  id="diarioFrame" src="https://www.abc.com.py/" height="500" width="1350" title="diarios"></iframe>
+    </div>
+    <div id="botones">
+        <button id="anteriorBtn"> ANTERIOR </button>
+        <button id="siguienteBtn"> SIGUIENTE </button>
+        <button id="popUp"> AGREGAR </button>
+    </div>
+    
+    <script>
+         diarios = [
+            'https://www.ultimahora.com/',
+            'https://www.lanacion.com.py/',
+            'https://elpais.com/noticias/paraguay/',
+        ];
+        
+        let currentIndex = 0;
+        
+         diarioFrame = document.getElementById('diarioFrame');
+         anteriorBtn = document.getElementById('anteriorBtn');
+         siguienteBtn = document.getElementById('siguienteBtn');
+        
+        function cargarDiario(index) {
+            diarioFrame.src = diarios[index];
+        }
+        
+        function mostrarDiarioSiguiente() {
+            currentIndex = (currentIndex + 1) % diarios.length;
+            cargarDiario(currentIndex);
+        }
+        
+        function mostrarDiarioAnterior() {
+            currentIndex = (currentIndex - 1 + diarios.length) % diarios.length;
+            cargarDiario(currentIndex);
+        }
+        function popUpFunction() {
+            let direccion;
+            let url = prompt("Please enter your URL:", "");
+            if (url == null || url == "") {
+                direccion = "User cancelled the prompt.";
+            } else {
+               diarios.push(url);
+
+            }
+            document.getElementById("demo").innerHTML = direccion;
+        }
+        
+        anteriorBtn.addEventListener('click', mostrarDiarioAnterior);
+        siguienteBtn.addEventListener('click', mostrarDiarioSiguiente);
+        popUp.addEventListener('click', popUpFunction);
+        
+        cargarDiario(currentIndex);
+        </script>
+        
+</body>
+</html>
